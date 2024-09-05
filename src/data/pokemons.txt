@@ -1,0 +1,27 @@
+Nome do pokemon: Bulbassauro. Tipo: Bulbassauro é um pokemon do tipo Grama.
+
+Nome do pokemon: Charmander. Tipo: Charmander é um pokemon do tipo Fogo.
+
+Nome do pokemon: Squirtle. Tipo: Squirtle é um pokemon do tipo Água.
+
+Nome do pokemon: Caterpie. Tipo: Caterpie é um pokemon do tipo Inseto.
+
+Nome do pokemon: Pidgey. Tipo: Pidgey é um pokemon do tipo Normal, Voador.
+
+Nome do pokemon: Ekans. Tipo: Ekans é um pokemon do tipo Venenoso.
+
+Nome do pokemon: Pikachu. Tipo: Pikachu é um pokemon do tipo Elétrico.
+
+Nome do pokemon: Sandshrew. Tipo: Sandshrew é um pokemon do tipo Terrestre.
+
+Nome do pokemon: Zubat. Tipo: Zubat é um pokemon do tipo Venenoso, Voador.
+
+Nome do pokemon: Psyduck. Tipo: Psyduck é um pokemon do tipo Água.
+
+Nome do pokemon: Kadabra. Tipo: Kadabra é um pokemon do tipo Psíquico.
+
+Nome do pokemon: Machamp. Tipo: Machamp é um pokemon do tipo Lutador.
+
+Nome do pokemon: Voltorb. Tipo: Voltorb é um pokemon do tipo Elétrico.
+
+Nome do pokemon: Ditto. Tipo: Ditto é um pokemon do tipo Normal.
