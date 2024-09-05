@@ -1,4 +1,4 @@
-import { createEmbedding } from '@/utils/embedding/ai-sdk';
+import { createEmbedding } from '@/utils/embedding/gemini';
 import { vectorSearch } from '@/utils/database/mongodb';
 
 export const tools = {
@@ -10,7 +10,7 @@ export const tools = {
     const results = await vectorSearch({
       embeddings: embedding,
       database: 'pokedex',
-      collection: 'pokemons_ai_sdk',
+      collection: 'pokemons_gemini',
       index: 'search_dot_product',
     });
 
@@ -24,7 +24,7 @@ export const tools = {
     const results = await vectorSearch({
       embeddings: embedding,
       database: 'pokedex',
-      collection: 'pokemons_ai_sdk',
+      collection: 'pokemons_gemini',
       index: 'search_cosine',
     });
 

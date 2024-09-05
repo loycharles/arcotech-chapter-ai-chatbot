@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-import { createEmbeddings } from '@/utils/embedding/ai-sdk';
+import { createEmbeddings } from '@/utils/embedding/gemini';
 import { insertDocuments } from '@/utils/database/mongodb';
 
 export async function POST() {
@@ -12,7 +12,7 @@ export async function POST() {
 
   const { insertedCount } = await insertDocuments({
     database: 'pokedex',
-    collection: 'pokemons_ai_sdk',
+    collection: 'pokemons_gemini',
     documents: chunks.map((chunk, index) => ({
       text: chunk,
       embedding: embeddings[index],

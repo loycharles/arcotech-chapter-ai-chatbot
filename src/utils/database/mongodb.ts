@@ -3,10 +3,10 @@ import { MongoClient } from 'mongodb';
 interface VectorSearchConfig {
   database: string;
   collection: string;
-  index: string;
 }
 
 interface VectorSearch extends VectorSearchConfig {
+  index: string;
   embeddings: number[];
 }
 
@@ -30,7 +30,7 @@ export const vectorSearch = async ({ embeddings, ...config }: VectorSearch) => {
         index: config.index,
         path: 'embedding',
         queryVector: embeddings,
-        limit: 2,
+        limit: 3,
         numCandidates: 14,
       },
     },
