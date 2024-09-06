@@ -1,0 +1,32 @@
+.message {
+  display: flex;
+  flex-direction: row;
+  margin-top: 16px;
+  gap: 16px;
+
+  &.user {
+    flex-direction: row-reverse;
+  }
+}
+
+.content {
+  max-width: 90%;
+
+  .user & {
+    max-width: 60%;
+    background-color: #E6E9ED;
+    padding: 12px;
+    border-radius: 8px;
+    border-top-right-radius: 0;
+    border: 1px solid #C9CED4;
+  }
+}
+
+.typing {
+  width: 50px;
+  height: 36px;
+}
+
+.pokemon {
+  margin-left: auto;
+}
