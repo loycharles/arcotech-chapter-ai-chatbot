@@ -1,20 +1,20 @@
-import Groq from 'groq-sdk';
+import ollama from 'ollama';
 
-import { tools } from '@/utils/tools/gemini';
+import { tools } from '@/utils/tools/transformer';
 
 interface RequestBody {
   prompt: string;
 }
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 export async function POST(req: Request) {
   const body = (await req.json()) as RequestBody;
   const { prompt } = body;
 
-  const toolModel = await groq.chat.completions.create({
-    model: 'llama3-groq-8b-8192-tool-use-preview',
-    temperature: 0,
+  const toolModel = await ollama.chat({
+    model: 'llama3.1:8b-instruct-q4_0',
+    options: {
+      temperature: 0,
+    },
     messages: [
       {
         role: 'system',
@@ -69,10 +69,9 @@ export async function POST(req: Request) {
         }
       }
     ],
-    tool_choice: 'required',
   });
 
-  const toolCalls = toolModel.choices[0]?.message.tool_calls || [];
+  const toolCalls = toolModel.message.tool_calls || [];
 
   if (toolCalls.length === 0) {
     return Response.json({
@@ -83,13 +82,15 @@ export async function POST(req: Request) {
 
   const call = toolCalls[0];
   const tool = tools[call.function.name as keyof typeof tools];
-  const pokemons = await tool(JSON.parse(call.function.arguments) as any);
+  const pokemons = await tool(call.function.arguments as any);
 
-  const completion = await groq.chat.completions.create({
-    model: 'llama-3.1-8b-instant',
-    temperature: 0,
+  const completion = await ollama.chat({
+    model: 'llama3.1:8b-instruct-q4_0',
+    options: {
+      temperature: 0,
+    },
     stream: false,
-    response_format: { type: 'json_object' },
+    format: 'json',
     messages: [
       {
         role: 'system',
@@ -113,8 +114,8 @@ export async function POST(req: Request) {
         Utilize o schema abaixo para responder a pergunta do usuário.
         Responda sempre em JSON.
         {
-          "pokemon": "Nome do pokemon ou null",
-          "message": "Mensagem de resposta ou 'Não foi possível encontrar a resposta.'"
+          "pokemon": "Nome do pokemon ou null. Campo obrigatório.",
+          "message": "Mensagem de resposta ou 'Não foi possível encontrar a resposta.' Campo obrigatório."
         }
         `
       },
@@ -125,14 +126,14 @@ export async function POST(req: Request) {
     ],
   });
 
-  const message = completion.choices[0]?.message.content || null;
+  try {
+    const message = JSON.parse(completion.message.content);
 
-  if (!message) {
+    return Response.json(message);
+  } catch (error) {
     return Response.json({
       pokemon: null,
       message: 'Não foi possível obter sua resposta. Tente novamente.',
     });
   }
-
-  return Response.json(JSON.parse(message));
 }
